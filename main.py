@@ -10,7 +10,7 @@ app = FastAPI(
 )
 
 # Read the Google API key from environment
-GOOGLE_API_KEY = os.getenv("AIzaSyA-0TQB0mS1B9Ci7CfnzrH7HQdrG-BIjdo")
+GOOGLE_API_KEY = os.getenv("GOOGLE_GEO_API_KEY")
 if not GOOGLE_API_KEY:
     # For Railway, just make sure you set this env var in the dashboard
     raise RuntimeError("GOOGLE_GEO_API_KEY environment variable is not set")
@@ -54,6 +54,13 @@ def health_check():
 
 @app.post("/cell-location", response_model=CellLookupResponse)
 def cell_location(req: CellLookupRequest):
+    # Make sure API key is configured
+    if not GOOGLE_API_KEY or not GOOGLE_URL:
+        raise HTTPException(
+            status_code=500,
+            detail="Google Geolocation API key is not configured on the server",
+        )
+
     # 1. Convert hex -> decimal
     try:
         lac_dec = hex_to_dec(req.lac_hex)
@@ -84,7 +91,6 @@ def cell_location(req: CellLookupRequest):
         )
 
     if r.status_code != 200:
-        # Surface Google’s error body so you can debug quota/auth issues
         raise HTTPException(
             status_code=502,
             detail=f"Google API error (status {r.status_code}): {r.text}",
