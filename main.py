@@ -10,7 +10,7 @@ app = FastAPI(
 )
 
 # Read the Google API key from environment
-GOOGLE_API_KEY = os.getenv("GOOGLE_GEO_API_KEY")
+GOOGLE_API_KEY = os.getenv("AIzaSyA-0TQB0mS1B9Ci7CfnzrH7HQdrG-BIjdo")
 if not GOOGLE_API_KEY:
     # For Railway, just make sure you set this env var in the dashboard
     raise RuntimeError("GOOGLE_GEO_API_KEY environment variable is not set")
