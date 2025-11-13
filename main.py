@@ -15,7 +15,7 @@ if not GOOGLE_API_KEY:
     # For Railway, just make sure you set this env var in the dashboard
     raise RuntimeError("GOOGLE_GEO_API_KEY environment variable is not set")
 
-GOOGLE_URL = f"https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyA-0TQB0mS1B9Ci7CfnzrH7HQdrG-BIjdo"
+GOOGLE_URL = f"https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyBu0Xl1DsZu5zJBdINJ4S0l28_kMS6mxR4"
 
 
 class CellLookupRequest(BaseModel):
